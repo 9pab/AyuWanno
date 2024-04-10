@@ -1,13 +1,10 @@
 <?php
 session_start();
-require_once 'vendor/autoload.php'; // เรียกใช้งาน autoload.php ของ Composer
+require_once 'vendor/autoload.php'; // เรียกใช้งานไลบรารี Line Login
+require_once 'vendor/google/apiclient/src/Google/autoload.php'; // เรียกใช้งานไลบรารี Google API Client
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
-
-use \LINE\LINELogin\LINELogin;
-use Google_Client;
-use Google_Service_Oauth2;
 
 // กำหนดค่า Line Login
 define('LINE_CLIENT_ID', $_ENV['LINE_CLIENT_ID']);
@@ -20,7 +17,7 @@ define('GOOGLE_CLIENT_SECRET', $_ENV['GOOGLE_CLIENT_SECRET']);
 define('GOOGLE_REDIRECT_URI', $_ENV['GOOGLE_REDIRECT_URI']);
 
 // กำหนดข้อมูลสำหรับ Line Client
-$lineLogin = new LINELogin(
+$lineLogin = new \LINE\LINELogin(
     [
         'channel_id' => LINE_CLIENT_ID,
         'channel_secret' => LINE_CLIENT_SECRET,
